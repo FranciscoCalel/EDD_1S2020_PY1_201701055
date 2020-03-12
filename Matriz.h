@@ -21,7 +21,7 @@ class Guia{
 		Guia * sig;
 		Guia * ant;
 		NodoMatriz * entrada;
-		guia(int id);
+		Guia(int id);
 }
 
 class Lista_guias{
