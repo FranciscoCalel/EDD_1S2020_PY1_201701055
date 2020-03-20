@@ -12,7 +12,7 @@ class NodoLD{
 	char *letra;
 	NodoLD* sig;
 	NodoLD* ant;
-	int cant;
+	int cantidad;
 	int punteo;
 	NodoLD(char *letra, int cant, int punteo);
 };
@@ -24,7 +24,7 @@ class ListaD
 		int tamLD;
 		int rep;
 		ListaD();
-		void insertar(char *letra, int cant, int punteo);
+		void insertar(char *letra, int cantidad, int punteo);
 		void eliminarCantidad(char *letra, int cant);
 		void print();
 		void reporte();

@@ -68,7 +68,7 @@ void ListaS::reporte(){
 	ofstream reporte;
 	reporte.open("RepScoreboard.dot", ios::out);
 	if(reporte.fail()){
-		cout<<"No se creo el reporte"<<endl;
+		cout<<"Reporte no creado"<<endl;
 		
 	}else{
 		reporte<<"digraph G{\n";
@@ -108,7 +108,7 @@ void ListaS::reporteJugador(char* nombre){
 	ofstream reporte;
 	reporte.open("RepJugador.dot", ios::out);
 	if(reporte.fail()){
-		cout<<"No se creo el reporte"<<endl;
+		cout<<"reporte no creado"<<endl;
 		
 	}else{
 		reporte<<"digraph G{\n";
