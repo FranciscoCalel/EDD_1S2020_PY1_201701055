@@ -1,5 +1,5 @@
-#ifndef MATRIZ
-#define MATRIZ
+#ifndef MATRIZ_H
+#define MATRIZ_H
 
 class Nodo_Matriz{
 	public:

@@ -18,7 +18,7 @@ class Cola
 	public:
 		nodoCola * primero;
 		nodoCola *ultimo;
-		int tamC;
+		int tamCola;
 		Cola();
 		void insertar(char *letra, int punteo);
 		void eliminar();
