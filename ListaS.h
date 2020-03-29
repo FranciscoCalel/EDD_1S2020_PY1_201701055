@@ -9,10 +9,10 @@ class nodoLS
 	public:
 	
 	char *nombre;
-	int puntos;
+	int punteo;
 	
 	nodoLS *sig;
-	nodoLS(char * nombre, int puntos);
+	nodoLS(char * nombre, int punteo);
 };
 class LS
 {
@@ -21,7 +21,7 @@ class LS
 		int tamLS;
 		
 		ListaS();
-		void insertarOrdenada(char *nombre, int puntos);
+		void insertarOrdenada(char *nombre, int punteo);
 		
 		void print();
 		void reporte();

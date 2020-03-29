@@ -1,0 +1,49 @@
+# Project: Proyecto1
+# Makefile created by Dev-C++ 5.5.3
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = main.o Matriz.o Cola.o ListaDC.o ListaS.o ListaD.o Arbol.o Metodos.o
+LINKOBJ  = main.o Matriz.o Cola.o ListaDC.o ListaS.o ListaD.o Arbol.o Metodos.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++"
+BIN      = Proyecto1.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+RM       = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+Matriz.o: Matriz.cpp
+	$(CPP) -c Matriz.cpp -o Matriz.o $(CXXFLAGS)
+
+Cola.o: Cola.cpp
+	$(CPP) -c Cola.cpp -o Cola.o $(CXXFLAGS)
+
+ListaDC.o: ListaDC.cpp
+	$(CPP) -c ListaDC.cpp -o ListaDC.o $(CXXFLAGS)
+
+ListaS.o: ListaS.cpp
+	$(CPP) -c ListaS.cpp -o ListaS.o $(CXXFLAGS)
+
+ListaD.o: ListaD.cpp
+	$(CPP) -c ListaD.cpp -o ListaD.o $(CXXFLAGS)
+
+Arbol.o: Arbol.cpp
+	$(CPP) -c Arbol.cpp -o Arbol.o $(CXXFLAGS)
+
+Metodos.o: Metodos.cpp
+	$(CPP) -c Metodos.cpp -o Metodos.o $(CXXFLAGS)

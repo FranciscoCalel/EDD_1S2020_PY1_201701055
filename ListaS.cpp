@@ -5,18 +5,18 @@
 
 using namespace std;
 
-nodoLS::nodoLS(char * nombre, int puntos)
+nodoLS::nodoLS(char * nombre, int punteo)
 {
 	this->nombre = nombre;
-	this->puntos = puntos;
+	this->punteo = punteo;
 	this->sig = 0;
 }
 ListaS::ListaS(){
 	this->primero = 0;
 	
 }//insertar al inicio en la lista
-void ListaS::insertarOrdenada(char*nombre, int puntos){
-	nodoLS *nuevo= new nodoLS(nombre, puntos);
+void ListaS::insertarOrdenada(char*nombre, int punteo){
+	nodoLS *nuevo= new nodoLS(nombre, punteo);
 	if(primero == 0){
 		primero = nuevo;
 		tamLS = 0;	
@@ -26,7 +26,7 @@ void ListaS::insertarOrdenada(char*nombre, int puntos){
 		nodoLS *aux = primero;
 		
 		while(i==true){
-			if(puntos > primero->puntos){
+			if(punteo > primero->pupnteo){
 				nuevo->sig = primero;
 				primero = nuevo;
 				tamLS++;
@@ -34,7 +34,7 @@ void ListaS::insertarOrdenada(char*nombre, int puntos){
 			}
 			else {
 				if(aux->sig != 0){
-					if(puntos< aux->puntos && puntos>aux->sig->puntos){
+					if(punteo< aux->punteo && punteo>aux->sig->punteo){
 						nuevo->sig =aux->sig;
 						aux->sig = nuevo;
 						tamLS++;
@@ -58,7 +58,7 @@ void ListaS::insertarOrdenada(char*nombre, int puntos){
 void ListaS::print(){
 	nodoLS *aux = primero;
 	while(aux->sig != 0){
-		cout<<aux->puntos;
+		cout<<aux->punteo;
 		aux = aux->sig;
 	}
 	cout<<aux->puntos<<endl;
@@ -81,13 +81,13 @@ void ListaS::reporte(){
 				reporte<<"[label = \"{<ref> | <data>";
 				reporte<<aux->nombre;
 				reporte<<",";
-				reporte<<aux->puntos;
+				reporte<<aux->punteo;
 				reporte<<" | }\"]\n";
 				reporte<<i+1;
 				reporte<<"[label = \"{<ref> | <data>";
 				reporte<<aux->sig->nombre;
 				reporte<<",";
-				reporte<<aux->sig->puntos;
+				reporte<<aux->sig->punteo;
 				reporte<<" | }\"]\n";
 				reporte<<i;
 				reporte<<"->";
@@ -117,9 +117,9 @@ void ListaS::reporteJugador(char* nombre){
 		nodoLS* aux = primero;
 		for(int i= 0; i<=tamLS; i++){
 			if(aux->sig != 0&&aux->nombre == nombre){
-				reporte<<aux->puntos;
+				reporte<<aux->punteo;
 				reporte<<"->";
-				reporte<<aux->sig->puntos;
+				reporte<<aux->sig->punteo;
 				reporte<<"\n";
 				aux = aux->sig;
 			}
