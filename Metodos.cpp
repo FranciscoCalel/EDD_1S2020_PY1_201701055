@@ -495,3 +495,215 @@ void Metodos::ValidarPalabraVertical(string palabra, int filaInicio, int filaFin
 		}
 	}
 }
+
+void Metodos::insertarFichas(ListaD *fichas){
+	fichas->insertar("A",12,1);
+	fichas->insertar("E",12,1);
+	fichas->insertar("O",9,1);
+	fichas->insertar("I",6,1);
+	fichas->insertar("S",6,1);
+	fichas->insertar("N",5,1);
+	fichas->insertar("L",4,1);
+	fichas->insertar("R",5,1);
+	fichas->insertar("U",5,1);
+	fichas->insertar("T",4,1);
+	fichas->insertar("D",5,2);
+	fichas->insertar("G",2,2);
+	fichas->insertar("C",4,3);
+	fichas->insertar("B",2,3);
+	fichas->insertar("M",2,3);
+	fichas->insertar("P",2,3);
+	fichas->insertar("H",2,4);
+	fichas->insertar("F",1,4);
+	fichas->insertar("V",1,4);
+	fichas->insertar("Y",1,4);
+	fichas->insertar("Q",1,5);
+	fichas->insertar("J",1,8);
+	fichas->insertar("Ñ",1,8);
+	fichas->insertar("X",1,8);
+	fichas->insertar("Z",1,10);
+}
+int Metodos::PosicionRandom(){
+	int posicion;
+	srand(time(NULL));
+	posicion= rand()%25;
+	
+	return posicion;
+}
+void Metodos::RepartirFichas(Nodo *j1, Nodo *j2){
+	NodoLD *aux = fichas->primero;
+	int ingresada=0;
+	int i=0;
+	int pos;
+	while(ingresada<7){
+		pos = PosicionRandom();
+		aux = fichas->primero;
+		while( i!= pos && i<fichas->tamLD ){
+			aux = aux->sig;
+			i++;
+		}
+		if(aux->cantidad != 0){
+			
+			j1->jugador->fichasJugador->insertar(aux->letra, 1, aux->puntaje);
+			fichas->eliminarCantidad(aux->letra,1);
+			ingresada++;
+			
+		}
+		i=0;
+	}
+		
+	
+	ingresada =0;
+	while(ingresada<7){
+		pos = PosicionRandom();
+		aux = fichas->primero;
+		while( i!= pos&& i<fichas->tamLD){
+			aux = aux->sig;
+			i++;
+		}	
+		if(aux->cantidad != 0){
+			j2->jugador->fichasJugador->insertar(aux->letra, 1, aux->puntaje);
+			
+			fichas->eliminarCantidad(aux->letra,1);
+			ingresada++;
+		}
+		i=0;
+	}
+	
+	while(fichas->tamLD>0){
+		aux = fichas->primero;
+		if(fichas->tamLD >0)
+			pos = PosicionRandom();
+		while(i != pos&& i<fichas->tamLD){
+			aux = aux->sig;
+			i++;
+		}
+		fichasDisponibles->tamC;
+		fichasDisponibles->insertar(aux->letra,aux->puntaje);
+		fichas->eliminarCantidad(aux->letra,1);
+		i=0;
+	}
+	fichasDisponibles->insertar(fichas->primero->letra,fichas->primero->puntaje);
+	fichas->eliminarCantidad(fichas->primero->letra,1);
+}
+bool Metodos::turno(string palabra,Nodo* jugador){
+	int p = palabra.size();
+	string c;
+	bool correcta = true;
+	
+	int i=0;
+	while(correcta== true && i<=p){
+		c = c+palabra[i];
+		char *d =new char[c.length()+1];
+		strcpy(d, c.c_str());
+		char *pa=strtok(d, "");
+		NodoLD *aux = jugador->jugador->fichasJugador->primero;
+		while(c != aux->letra && aux->sig != 0){
+			aux = aux->sig;
+		}
+		if(c == aux->letra){
+			c="";
+			i++;
+		}
+		else{
+			if(i!=p)
+				correcta=false;
+			i++;
+		}
+	}
+	i=0;
+	if(correcta == false){
+		cout<<"VERIFICAR FICHAS\n";
+		return false;
+	}
+	while(correcta==true && i<=p){
+		c = palabra[i];
+		char *d =new char[c.length()+1];
+		strcpy(d, c.c_str());
+		char *pa=strtok(d, "");
+		NodoLD *aux = jugador->jugador->fichasJugador->primero;
+		while(c!=aux->letra && aux->sig !=0){
+			aux = aux->sig;
+		}
+		if(c == aux->letra){
+			jugador->jugador->fichasJugador->eliminarCantidad(aux->letra,1);
+			c="";
+			i++;
+		}else {
+			if(i!=p)
+				correcta=false;
+			i++;
+			return true;
+				//cout<<"SIGUIENTE TURNO\n";
+				
+			
+			
+				
+		}
+	}
+}
+void Metodos::sdf(string palabra, Nodo *Jactual, Nodo *Jsiguiente){
+	int p, columna,fila, opcion;
+	cout<<"TURNO DE: ";
+	cout<<Jactual->info<<"\n";
+		Jactual->jugador->fichasJugador->print();
+		cout<<"1.INGRESAR PALABRA\n";
+		cout<<"2. CAMBIAR FICHAS\n";
+		cout<<"3. TERMINAR JUEGO\n";
+		cin>>opcion;
+		if(opcion==2){
+			cout<<"INGRESAR LETRAS\n";
+			cin>>palabra;
+			CambiarFichas(palabra,Jactual);
+		}else if(opcion ==1){
+			cout<<"INGRESAR PALABRA\n";
+			cin>>palabra;
+			p = palabra.size();
+			bool t;
+			t=turno(palabra,Jactual);
+			if(t==true){
+				cout<<"INGRESAR FILA Y COLUMNA DE INICIO\n";
+				cin>>fila;
+				cin>>columna;
+				cout<<"1. HORIZONTAL\n";
+				cout<<"2. VERTICAL\n";
+				cin>>opcion;
+				if(opcion==1){
+					ValidarPalabraHorizontal(palabra,columna, p, fila, Jactual);
+					
+					matriz->reporte();
+				}else if(opcion == 2){
+					ValidarPalabraVertical(palabra, fila, p, columna, Jactual);
+					ValidarPalabraVertical("HOLA",3,6,10, j1);
+					ValidarPalabraHorizontal("MUNDO",6,10,4, j1);
+					matriz->reporte();
+				}
+			
+			}
+		}
+		else if(opcion ==3){
+			scoreboard->insertarOrdenada(Jactual->jugador->nombre, Jactual->jugador->puntaje);
+			scoreboard->insertarOrdenada(Jsiguiente->jugador->nombre, Jsiguiente->jugador->puntaje);
+			menu();
+		}
+		
+}
+void Metodos::CambiarFichas(string letras, Nodo * jugador){
+	int l = letras.size();
+	string c;
+	for(int i = 0; i<= l; i++){
+		c = letras[i];
+		char *d =new char[c.length()+1];
+		strcpy(d, c.c_str());
+		char *pa=strtok(d, "");
+		NodoLD*aux = jugador->jugador->fichasJugador->buscar(pa);
+		if(aux!=NULL){
+			fichasDisponibles->insertar(aux->letra, aux->puntaje);
+			jugador->jugador->fichasJugador->eliminarCantidad(aux->letra,1);
+			nodoC*nuevo = fichasDisponibles->eliminar();
+			jugador->jugador->fichasJugador->insertar(nuevo->letra, 1, nuevo->punteo);
+		}
+		
+	}
+}
+
