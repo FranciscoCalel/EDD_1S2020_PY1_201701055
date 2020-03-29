@@ -1,4 +1,4 @@
-#include "Operaciones.h"
+#include "Metodos.h"
 #include <stdlib.h>
 #include <iostream>
 #include <stdio.h>

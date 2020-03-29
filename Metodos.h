@@ -1,4 +1,4 @@
-#ifndef METEODOS_H
+#ifndef METODOS_H
 #define METODOS_H
 #include "json.hpp"
 #include "Matriz.h"
