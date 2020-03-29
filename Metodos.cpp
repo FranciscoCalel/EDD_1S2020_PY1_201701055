@@ -310,3 +310,188 @@ void Metodos::ValidarPalabraHorizontal(string palabra, int columnaInicio, int co
 	
 	
 }
+
+int Metodos::PuntajeHorizontal(string palabra, int fila){
+	int p = palabra.size();
+	int puntaje;
+	NodoLD *aux ;
+	Encabezado *eFila = matriz->eFilas->getEncabezado(fila);
+	NodoM *actual= eFila->acceso;
+	string letra;
+	for(int i=0; i<=p; i++){
+		letra = letra + palabra[i];
+		aux = fichasCopia->primero;
+		aux->sig->letra;
+		
+		while(letra != aux->letra&&aux->sig != 0){
+			
+				aux = aux->sig;
+		}
+		if(letra== aux->letra){
+			while(letra != actual->valor && actual->derecha != 0){
+				actual = actual->derecha;
+			}
+			if(letra == actual->valor && actual->valorAnt == "dobles"){
+				puntaje = 2*aux->puntaje + puntaje;//revisar
+			}else{
+				puntaje = puntaje+aux->puntaje;//revisar
+			}
+			
+		}
+		letra = "";
+	}
+	return puntaje;
+}
+int Metodos::PuntajeVertical(string palabra, int columna){
+	int p = palabra.size();
+	int puntaje;// revisar
+	NodoLD *aux ;
+	Encabezado *eColumna = matriz->eColumnas->getEncabezado(columna);
+	NodoM *actual= eColumna->acceso;
+	string letra;
+	for(int i=0; i<=p; i++){
+		letra = letra + palabra[i];
+		aux = fichasCopia->primero;
+		while(letra != aux->letra && aux->sig != 0){
+			aux = aux->sig;
+		}
+		if(letra== aux->letra){
+			while(letra != actual->valor && actual->abajo != 0){
+				actual = actual->abajo;
+			}
+			if(letra == actual->valor && actual->valorAnt == "dobles"){
+				puntaje = 2*aux->puntaje + puntaje;
+			}else{
+				puntaje = puntaje+aux->puntaje;//revisar
+			}
+			
+		}
+		letra = "";
+	}
+	return puntaje;
+}
+void Metodos::ValidarPalabraVertical(string palabra, int filaInicio, int filaFinal, int columna, Nodo *jugador){
+	int p = palabra.size();
+	NodoM *aux ;
+	string c ;
+	bool bandera = true;
+	int fila = filaInicio;
+	filaFinal = filaInicio + filaFinal;
+	for(int i = 0; i<p; i++){
+		while(filaInicio < filaFinal){
+			//matriz->reporte(); REVISAR :-(
+			aux = matriz->buscar(11,9);
+			aux->valor;
+			aux= matriz->buscar(filaInicio, columna);
+			c = c+palabra[i];
+			char *d =new char[c.length()+1];
+			strcpy(d, c.c_str());
+			char *pa=strtok(d, "");
+			matriz->recorrerFilas();
+			if(aux == NULL){
+				
+				matriz->insertar(filaInicio, columna, pa);
+				matriz->recorrerFilas();
+				c = "";
+				filaInicio++;
+				i++;
+				
+			}
+			else{
+				matriz->recorrerFilas();
+				if(aux->valor == "dobles" || aux->valor =="triples"){
+					aux->valorAnt = aux->valor;
+					aux->valor = pa;
+					c = "";
+					filaInicio++;
+					i++;
+					
+				}else{
+					if(c!=aux->valor){
+						cout<<"Casilla ocupada " ;
+						cout<<aux->valor;
+						cout<<"fila";
+						cout<<aux->fila;
+						cout<<"Columna";
+						cout<<aux->columna;
+						c = "";
+						i=p;
+						bandera = false;
+						break;
+					}else{
+						aux->valorAnt = aux->valor;
+						c = "";
+						filaInicio++;
+						i++;
+					}
+				}
+			}
+		}
+	}
+	if(bandera == true){
+		
+		Encabezado * eColumna =matriz->eColumnas->getEncabezado(columna);
+		NodoM *aux = eColumna->acceso;
+		while(aux->abajo != NULL &&(aux->abajo->valor!="dobles"|| aux->abajo->valor!="triples")){
+		//	if((aux->valor != "dobles"&& aux->valor!="triples")){
+				
+				c = c+ aux->valor;
+				aux = aux->abajo;
+		//	}else{
+		//		aux = aux->abajo;
+		//	}
+			
+			
+		}
+		if(aux->valor != "dobles"&& aux->valor != "triples" && aux->valor != 0)
+			c = c+ aux->valor;
+		
+	}
+	
+	nodoLC *aux1 = listaDiccionario->primero;
+	
+	while(aux1->palabra != c && aux1 != listaDiccionario->ultimo){
+		aux1 = aux1->sig;
+	}
+	if(aux1->palabra == c){
+		nodoC *actualC;
+		for(int i = 0; i<=p; i++){
+			actualC = fichasDisponibles->primero;
+			jugador->jugador->fichasJugador->insertar(actualC->letra,1, actualC->punteo);
+			fichasDisponibles->eliminar();
+		}
+		
+		cout<<"PALABRA INGRESADA \n";
+		jugador->jugador->puntaje = jugador->jugador->puntaje + PuntajeVertical(c,columna);
+		cout<<"Puntaje de "<<jugador->jugador->puntaje<<endl;
+		
+	}else{
+		NodoLD *actual;
+		cout<<"PALABRA NO INGRESADA \n";
+		for(int i= 0; i<=p; i++){
+			
+			while(fila <= filaFinal){
+				c= palabra[i];
+				aux= matriz->buscar(fila, columna);
+				char *d =new char[c.length()+1];
+				strcpy(d, c.c_str());
+				char *pa=strtok(d,"");
+				if(aux->valorAnt == 0){
+					matriz->eliminar(fila, columna);
+					actual = fichasCopia->buscar(pa);
+					jugador->jugador->fichasJugador->insertar(pa,1,actual->puntaje);
+					fila++;
+					i++;
+				}
+				else{
+					aux->valor = aux->valorAnt;
+					actual = fichasCopia->buscar(pa);
+					jugador->jugador->fichasJugador->insertar(pa,1,actual->puntaje);
+					fila++;
+					i++;
+					
+				}
+			}
+		}
+	}
+}
