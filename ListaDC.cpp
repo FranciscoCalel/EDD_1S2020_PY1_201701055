@@ -1,6 +1,6 @@
+#include "ListaDC.h"
 #include <fstream>
 #include <string>
-#include "ListaDobleCircular.h"
 #include <iostream>
 using namespace std;
 

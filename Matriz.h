@@ -1,17 +1,22 @@
 #ifndef MATRIZ_H
 #define MATRIZ_H
 
-class Nodo_Matriz{
+typedef class NodoM NodoM;
+typedef class Encabezado Encabezado;
+typedef class ListaEncabezados ListaEncabezados;
+typedef class Matriz Matriz;
+
+class Nodo_Matriz
+{
 	public:
-		int fila, columna;
-		char * valor;
-		
-		NodoMatriz *izq;
-		NodoMatriz *der;
-		NodoMatriz *arriba;
-		NodoMatriz *abajo;
-		NodoMatriz(int fila, int columna, char*valor);
-		
+	int fila, columna;
+	char *valorAnt;
+	char * valor;	
+	NodoMatriz *izq;
+	NodoMatriz *der;
+	NodoMatriz *arriba;
+	NodoMatriz *abajo;
+	NodoMatriz(int fila, int columna, char*valor);		
 };
 
 class Guia{
@@ -22,7 +27,7 @@ class Guia{
 		Guia * ant;
 		NodoMatriz * entrada;
 		Guia(int id);
-}
+};
 
 class Lista_guias{
 	Guia * prim;
@@ -42,4 +47,4 @@ class Matriz{
 	NodoMatriz * buscar(int fila,int columna);	
 };
 
-#endif
+#endif // MATRIZORTOGONAL

@@ -7,7 +7,7 @@
 using namespace std;
 
 
-void Operaciones::menu(){
+void Metodos::menu(){
 	system("cls");
 	string entrada;
 	int opcion;
@@ -342,6 +342,7 @@ int Metodos::PuntajeHorizontal(string palabra, int fila){
 	}
 	return puntaje;
 }
+
 int Metodos::PuntajeVertical(string palabra, int columna){
 	int p = palabra.size();
 	int puntaje;// revisar
@@ -370,6 +371,7 @@ int Metodos::PuntajeVertical(string palabra, int columna){
 	}
 	return puntaje;
 }
+
 void Metodos::ValidarPalabraVertical(string palabra, int filaInicio, int filaFinal, int columna, Nodo *jugador){
 	int p = palabra.size();
 	NodoM *aux ;

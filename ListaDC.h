@@ -4,10 +4,8 @@
 //#include <fstream>
 #include  <string.h>
 using namespace std;
-
 typedef class nodold nodold;
 typedef class ListaDC ListaDC;
-
 class nodold
 {
 	public: 

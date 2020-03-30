@@ -7,10 +7,8 @@ typedef class ListaS ListaS;
 class nodoLS
 {
 	public:
-	
 	char *nombre;
 	int punteo;
-	
 	nodoLS *sig;
 	nodoLS(char * nombre, int punteo);
 };
@@ -22,10 +20,8 @@ class LS
 		
 		ListaS();
 		void insertarOrdenada(char *nombre, int punteo);
-		
 		void print();
 		void reporte();
-		
 		void reporteJugador(char *nombre);
 	protected:
 };

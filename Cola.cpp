@@ -5,7 +5,7 @@
 
 using namespace std;
 
-nodoCola::nodoCola(char *letra, int puntos){
+nodoC::nodoC(char *letra, int puntos){
 	this->letra = letra;
 	this->puntos = puntos;
 	this->sig = 0;
@@ -13,9 +13,10 @@ nodoCola::nodoCola(char *letra, int puntos){
 Cola::Cola(){
 	this->primero = 0;
 	this->ultimo = 0;
+	this->tamC=0;
 }
 void Cola::insertar(char *letra, int puntos){
-	nodoCola *nuevo = new nodoC(letra, puntos);
+	nodoC *nuevo = new nodoC(letra, puntos);
 	if(primero== 0){
 		primero = nuevo;
 		ultimo = nuevo;
@@ -24,20 +25,21 @@ void Cola::insertar(char *letra, int puntos){
 	else{
 		nuevo->sig = ultimo;
 		ultimo = nuevo;
-		tamCola++;
+		tamC++;
 	}
 }
 void Cola::eliminar(){
-	nodoCola *aux= ultimo;
+	nodoC *aux= ultimo;
 	while(aux->sig != primero){
 		aux = aux->sig;
 	}
 	aux->sig = 0;
 	primero = aux;
-	tamCola--;
+	tamC--;
+	return aux;
 }
 void Cola::print(){
-	nodoCola *aux = ultimo;
+	nodoC *aux = ultimo;
 	while(aux->sig != 0){
 		cout<<aux->letra;
 		cout<<",";
@@ -51,7 +53,7 @@ void Cola::print(){
 }
 void Cola::reporte(){
 	ofstream reporte;
-	reporte.open("RepFichasDisponibles.dot", ios::out);
+	reporte.open("ReparteFichasDisponibles.dot", ios::out);
 	if(reporte.fail()){
 		cout<<"No se creo el reporte"<<endl;
 		

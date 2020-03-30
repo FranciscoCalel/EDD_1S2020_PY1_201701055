@@ -5,6 +5,7 @@
 #include <fstream>
 using namespace std;
 
+
 typedef class NodoLD NodoLD;
 typedef class ListaD ListaD;
 class NodoLD{
