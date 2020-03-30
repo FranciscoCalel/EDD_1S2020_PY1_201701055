@@ -60,7 +60,9 @@ void Metodos::menu(){
 			menu();
 			break;
 	}
-	void Metodos::jugar(Nodo *j1, Nodo * j2){
+	
+}
+void Metodos::jugar(Nodo *j1, Nodo * j2){
 	bool juego = true;
 	bool turnoJ1= true;
 	bool turnoJ2 = false;
@@ -310,7 +312,6 @@ void Metodos::ValidarPalabraHorizontal(string palabra, int columnaInicio, int co
 	
 	
 }
-
 int Metodos::PuntajeHorizontal(string palabra, int fila){
 	int p = palabra.size();
 	int puntaje;
@@ -342,7 +343,6 @@ int Metodos::PuntajeHorizontal(string palabra, int fila){
 	}
 	return puntaje;
 }
-
 int Metodos::PuntajeVertical(string palabra, int columna){
 	int p = palabra.size();
 	int puntaje;// revisar
@@ -371,7 +371,6 @@ int Metodos::PuntajeVertical(string palabra, int columna){
 	}
 	return puntaje;
 }
-
 void Metodos::ValidarPalabraVertical(string palabra, int filaInicio, int filaFinal, int columna, Nodo *jugador){
 	int p = palabra.size();
 	NodoM *aux ;
@@ -497,7 +496,6 @@ void Metodos::ValidarPalabraVertical(string palabra, int filaInicio, int filaFin
 		}
 	}
 }
-
 void Metodos::insertarFichas(ListaD *fichas){
 	fichas->insertar("A",12,1);
 	fichas->insertar("E",12,1);
