@@ -5,18 +5,18 @@
 
 using namespace std;
 
-nodoC::nodoC(char *letra, int puntos){
+nodoCola::nodoCola(char *letra, int puntos){
 	this->letra = letra;
-	this->puntos = puntos;
+	this->punteo = punteo;
 	this->sig = 0;
 }
 Cola::Cola(){
 	this->primero = 0;
 	this->ultimo = 0;
-	this->tamC=0;
+	this->tamCola=0;
 }
 void Cola::insertar(char *letra, int puntos){
-	nodoC *nuevo = new nodoC(letra, puntos);
+	nodoCola *nuevo = new nodoCola(letra, puntos);
 	if(primero== 0){
 		primero = nuevo;
 		ultimo = nuevo;
@@ -25,31 +25,31 @@ void Cola::insertar(char *letra, int puntos){
 	else{
 		nuevo->sig = ultimo;
 		ultimo = nuevo;
-		tamC++;
+		tamCola++;
 	}
 }
-void Cola::eliminar(){
-	nodoC *aux= ultimo;
+nodoCola* Cola::eliminar(){//revisar
+	nodoCola *aux= ultimo;
 	while(aux->sig != primero){
 		aux = aux->sig;
 	}
 	aux->sig = 0;
 	primero = aux;
-	tamC--;
+	tamCola--;
 	return aux;
 }
 void Cola::print(){
-	nodoC *aux = ultimo;
+	nodoCola *aux = ultimo;
 	while(aux->sig != 0){
 		cout<<aux->letra;
 		cout<<",";
-		cout<<aux->puntos;
+		cout<<aux->punteo;
 		cout<<"\n";
 		aux = aux->sig;
 	}
 	cout<<aux->letra;
 	cout<<",";
-	cout<<aux->puntos;
+	cout<<aux->punteo;
 }
 void Cola::reporte(){
 	ofstream reporte;
@@ -62,20 +62,20 @@ void Cola::reporte(){
 		reporte<<"rankdir = LR;\n";
 		reporte<<"node [shape= record,width=.1,height=.1];\n";
 		reporte<<"node0[label =\"";
-		nodoC* aux = ultimo;
-		for(int i= 0; i<=tamC; i++){
+		nodoCola* aux = ultimo;
+		for(int i= 0; i<=tamCola; i++){
 			if(aux->sig != 0){
 				
 				reporte<<aux->letra;
 				reporte<<"x";
-				reporte<<aux->puntos;
+				reporte<<aux->punteo;
 				reporte<<"|";
 				aux = aux->sig;
 			}
 			else{
 				reporte<<aux->letra;
 				reporte<<"x";
-				reporte<<aux->puntos;
+				reporte<<aux->punteo;
 			}
 				
 		}

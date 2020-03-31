@@ -4,23 +4,23 @@
 //#include <fstream>
 #include  <string.h>
 using namespace std;
-typedef class nodold nodold;
+typedef class nodoldc nodoldc;
 typedef class ListaDC ListaDC;
-class nodold
+class nodoldc
 {
 	public: 
 		string palabra;
-		nodold *sig;
-		nodold *ant;
-		nodold(string palabra);
+		nodoldc *sig;
+		nodoldc *ant;
+		nodoldc(string palabra);
 
 	
 };
 class ListaDC
 {
 	public:
-		nodold *ultimo;
-		nodold *primero;
+		nodoldc *ultimo;
+		nodoldc *primero;
 		int tamaLC;
 		ListaDC();
 		void insertar(string palabra);

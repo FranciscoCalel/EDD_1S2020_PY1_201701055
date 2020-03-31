@@ -12,7 +12,7 @@ class nodoLS
 	nodoLS *sig;
 	nodoLS(char * nombre, int punteo);
 };
-class LS
+class ListaS
 {
 	public:
 		nodoLS *primero;
@@ -27,3 +27,4 @@ class LS
 };
 
 #endif
+

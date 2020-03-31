@@ -4,7 +4,7 @@
 #include <fstream>
 using namespace std;
 
-NodoM::Nodo_M(int fila, int columna, char * valor)
+Nodo_Matriz::Nodo_Matriz(int fila, int columna, char * valor)
 {
     this->fila = fila;
     this->columna = columna;
@@ -24,41 +24,41 @@ Guia::Guia(int id)
     this->entrada = NULL;
 }
 
-void Lista_guias::insertar(Guia * nuevo)
+void Lista_guias::insert(Guia * nuevo)
 {
-    if(primero == NULL)
+    if(prim == NULL)
     {
-       primero = nuevo;
+       prim = nuevo;
     }
     else
     {
-        if(nuevo->id < primero->id) //Inserción al inicio
+        if(nuevo->id < prim->id) //Inserción al inicio
         {
-            nuevo->siguiente = primero;
-            primero->anterior = nuevo;
-            primero = nuevo;
+            nuevo->sig = prim;
+            prim->ant = nuevo;
+            prim = nuevo;
         }
         else
         {
-            Guia * actual = primero;
-            while(actual->siguiente != NULL)
+            Guia * actual = prim;
+            while(actual->sig != NULL)
             {
-                if(nuevo->id < actual->siguiente->id) //Inserción en el medio
+                if(nuevo->id < actual->sig->id) //Inserción en el medio
                 {
-                    nuevo->siguiente = actual->siguiente;
-                    actual->siguiente->anterior = nuevo;
-                    nuevo->anterior = actual;
-                    actual->siguiente = nuevo;
+                    nuevo->sig = actual->sig;
+                    actual->sig->ant = nuevo;
+                    nuevo->ant = actual;
+                    actual->sig = nuevo;
                     break;
                 }
 
-                actual = actual->siguiente;
+                actual = actual->sig;
             }
 
-            if(actual->siguiente == NULL) //Inserción al final
+            if(actual->sig == NULL) //Inserción al final
             {
-                actual->siguiente = nuevo;
-                nuevo->anterior = actual;
+                actual->sig = nuevo;
+                nuevo->ant = actual;
             }
         }
     }
@@ -66,7 +66,7 @@ void Lista_guias::insertar(Guia * nuevo)
 
 Guia * Lista_guias::getGuia(int id)
 {
-    Guia * actual = primero;
+    Guia * actual = prim;
     while(actual != NULL)
     {
         if(actual->id == id)
@@ -74,7 +74,7 @@ Guia * Lista_guias::getGuia(int id)
             return actual;
         }
 
-        actual = actual->siguiente;
+        actual = actual->sig;
     }
 
     return NULL;
@@ -82,18 +82,18 @@ Guia * Lista_guias::getGuia(int id)
 
 Matriz::Matriz()
 {
-    this->eFilas = new Lista_guias();
-    this->eColumnas = new Lista_guias();
+    this->eFilas = new Lista_guias();       //revisar
+    this->eColumnas = new Lista_guias();   //revisar
 }
 
-void Matriz::insertar(int fila, int columna, char * valor)
+void Matriz::insert(int fila, int columna, char * valor)
 {
-    NodoM * nuevo = new NodoM(fila, columna, valor);
+    Nodo_Matriz * nuevo = new Nodo_Matriz(fila, columna, valor);
 
     //INSERCION_FILAS
     Guia * eFila = eFilas->getGuia(fila);
     Guia * eColumna = eColumnas->getGuia(columna);
-    NodoM *aux = buscar(fila, columna);
+    Nodo_Matriz *aux = buscar(fila, columna);
     if(aux != NULL){
     	aux->valor = valor;
 	}else{
@@ -101,40 +101,40 @@ void Matriz::insertar(int fila, int columna, char * valor)
 	
     if(eFila == NULL) //Si no existe encabezado se crea.
     {
-        eFila = new Encabezado(fila);
-        eFilas->insertar(eFila);
-        eFila->acceso = nuevo;
+        eFila = new Guia(fila);
+        eFilas->insert(eFila);
+        eFila->entrada = nuevo;
     }
     else
     {
-        if(nuevo->columna < eFila->acceso->columna) //Inserción al inicio
+        if(nuevo->columna < eFila->entrada->columna) //Inserción al inicio
         {
-            nuevo->derecha = eFila->acceso;
-            eFila->acceso->izquierda = nuevo;
-            eFila->acceso = nuevo;
+            nuevo->der = eFila->entrada;
+            eFila->entrada->izq = nuevo;
+            eFila->entrada = nuevo;
         }
         else
         {
-            NodoM * actual = eFila->acceso;
-            while(actual->derecha != NULL)
+            Nodo_Matriz * actual = eFila->entrada;
+            while(actual->der != NULL)
             {
-                if(nuevo->columna < actual->derecha->columna) //Inserción en el medio
+                if(nuevo->columna < actual->der->columna) //Inserción en el medio
                 {
-                    nuevo->derecha = actual->derecha;
-                    actual->derecha->izquierda = nuevo;
-                    nuevo->izquierda = actual;
-                    actual->derecha = nuevo;
+                    nuevo->der = actual->der;
+                    actual->der->izq = nuevo;
+                    nuevo->izq = actual;
+                    actual->der = nuevo;
                     break;
                     
                 }
 
-                actual = actual->derecha;
+                actual = actual->der;
             }
 
-            if(actual->derecha == NULL) //Inserción al final
+            if(actual->der == NULL) //Inserción al final
             {
-                actual->derecha = nuevo;
-                nuevo->izquierda = actual;
+                actual->der = nuevo;
+                nuevo->izq = actual;
             }
         }
     }
@@ -145,86 +145,86 @@ void Matriz::insertar(int fila, int columna, char * valor)
     if(eColumna == NULL) //Si no existe encabezado se crea.
     {
         eColumna = new Guia(columna);
-        eColumnas->insertar(eColumna);
-        eColumna->acceso = nuevo;
+        eColumnas->insert(eColumna);
+        eColumna->entrada = nuevo;
     }
-    else
-    {
-        if(nuevo->fila < eColumna->acceso->fila) //Inserción al inicio
-        {
-            nuevo->abajo = eColumna->acceso;
-            eColumna->acceso->arriba = nuevo;
-            eColumna->acceso = nuevo;
-        }
-        else
-        {
-            NodoM * actual = eColumna->acceso;
-            while(actual->abajo != NULL)
-            {
-                if(nuevo->fila < actual->abajo->fila) //Inserción en el medio
-                {
-                    nuevo->abajo = actual->abajo;
-                    actual->abajo->arriba = nuevo;
-                    nuevo->arriba = actual;
-                    actual->abajo = nuevo;
-                    break;
-                }
+    	else
+    	{
+        	if(nuevo->fila < eColumna->entrada->fila) //Inserción al inicio
+        	{
+           		nuevo->abajo = eColumna->entrada;
+            	eColumna->entrada->arriba = nuevo;
+            	eColumna->entrada = nuevo;
+        	}
+        	else
+        	{
+            	Nodo_Matriz * actual = eColumna->entrada;
+            	while(actual->abajo != NULL)
+            	{
+                	if(nuevo->fila < actual->abajo->fila) //Inserción en el medio
+                	{
+                    	nuevo->abajo = actual->abajo;
+                    	actual->abajo->arriba = nuevo;
+                    	nuevo->arriba = actual;
+                    	actual->abajo = nuevo;
+                    	break;
+                	}	
 
-                actual = actual->abajo;
-            }
+                	actual = actual->abajo;
+            	}	
 
-            if(actual->abajo == NULL) //Inserción al final
-            {
-                actual->abajo = nuevo;
-                nuevo->arriba = actual;
-            }
-        }
-    }
+            	if(actual->abajo == NULL) //Inserción al final
+            	{
+                	actual->abajo = nuevo;
+                	nuevo->arriba = actual;
+            	}
+        	}
+    	}	
     //FIN_COLUMNAS
-}
+	}
 }
 
-void Matriz::recorrerFilas()
+void Matriz::recFil()
 {
-    Guia * eFila = eFilas->primero;
+    Guia * eFila = eFilas->prim;
     cout << "Recorrido Por Filas: ";
 
     while(eFila != NULL)
     {
-        NodoM * actual = eFila->acceso;
+        Nodo_Matriz * actual = eFila->entrada;
         while(actual != NULL)
         {
         	
             cout << actual->valor;
 
-            if(eFila->siguiente != NULL || actual->derecha != NULL)
+            if(eFila->sig != NULL || actual->der != NULL)
             {
                 cout << "->";
             }
 
 
-            actual = actual->derecha;
+            actual = actual->der;
         }
 
-        eFila = eFila->siguiente;
+        eFila = eFila->sig;
     }
 
     cout << endl;
 }
 
-void Matriz::recorrerColumnas()
+void Matriz::recCol()
 {
-    Guia * eColumna = eColumnas->primero;
+    Guia * eColumna = eColumnas->prim;
     cout << "Recorrido Por Columnas: ";
 
     while(eColumna != NULL)
     {
-        NodoM * actual = eColumna->acceso;
+        Nodo_Matriz * actual = eColumna->entrada;
         while(actual != NULL)
         {
             cout << actual->valor;
 
-            if(eColumna->siguiente != NULL || actual->abajo != NULL)
+            if(eColumna->sig != NULL || actual->abajo != NULL)
             {
                 cout << "->";
             }
@@ -232,7 +232,7 @@ void Matriz::recorrerColumnas()
             actual = actual->abajo;
         }
 
-        eColumna = eColumna->siguiente;
+        eColumna = eColumna->sig;
     }
 
     cout << endl;
@@ -241,55 +241,55 @@ void Matriz::eliminar(int fila, int columna)
 {
 	Guia *efila= eFilas->getGuia(fila);
 	Guia *ecolumna = eColumnas->getGuia(columna);
-	NodoM *actual = efila->acceso;
+	Nodo_Matriz *actual = efila->entrada;
 	//eliminar apuntadores accediendo por fila
-	if(efila->acceso != 0 ){
-		if(actual->columna == ecolumna->acceso->columna){
-				if(actual->derecha !=0){
-					actual->derecha->izquierda = 0;
-					actual->izquierda = 0;
-					efila->acceso = actual->derecha;
-					actual->derecha = 0;
+	if(efila->entrada != 0 ){
+		if(actual->columna == ecolumna->entrada->columna){
+				if(actual->der !=0){
+					actual->der->izq = 0;
+					actual->izq = 0;
+					efila->entrada = actual->der;
+					actual->der = 0;
 				}else{
-					actual->izquierda = 0;
-					efila->acceso = 0;
-					actual->derecha = 0;
+					actual->izq = 0;
+					efila->entrada = 0;
+					actual->der = 0;
 				}
 				
 		}else{
 			
-			while(actual->columna!= columna && actual->derecha != 0){
-				actual = actual->derecha;
+			while(actual->columna!= columna && actual->der != 0){
+				actual = actual->der;
 			}
 			
-			if(actual->derecha != 0){//eliminar en medio
+			if(actual->der != 0){//eliminar en medio
 				
-				actual->izquierda->derecha = actual->derecha;
-		 		actual->derecha->izquierda = actual->izquierda;
+				actual->izq->der = actual->der;
+		 		actual->der->izq = actual->izq;
 			}
 			else{//eliminar el ultimo
 				
-				actual->izquierda->derecha = 0;
-		 		actual->izquierda = 0;
+				actual->izq->der = 0;
+		 		actual->izq = 0;
 			}
 		}
 	}
 	//ELIMINANDO APUNTADORES POR COLUMNA
 	
-	if(ecolumna->acceso != 0 ){
+	if(ecolumna->entrada != 0 ){
 		
-		if(actual->fila == ecolumna->acceso->fila){
+		if(actual->fila == ecolumna->entrada->fila){
 			
 				if(actual->abajo !=0){
 					
 					actual->abajo->arriba = 0;
 					actual->arriba = 0;
-					ecolumna->acceso = actual->abajo;
+					ecolumna->entrada = actual->abajo;
 					actual->abajo = 0;
 				}else{
 					
 					actual->arriba = 0;
-					ecolumna->acceso = 0;
+					ecolumna->entrada = 0;
 					actual->abajo = 0;
 				}
 				
@@ -312,7 +312,7 @@ void Matriz::eliminar(int fila, int columna)
 		}
 	}
 }
-void Matriz::reporte()
+void Matriz::rep()
 {
 	ofstream reporte;
 	reporte.open("RepMatriz.dot", ios::out);
@@ -325,19 +325,19 @@ void Matriz::reporte()
 		reporte<<"node[shape=box, style=filled, color = Gray80];\n";
 		reporte<<"edge[color=black]\n";
 		reporte<<"rankdir=UD\n";
-		Guia * eFila = eFilas->primero;/////***************NOOO TOCAR
-		Guia *ecolumna = eColumnas->primero;
+		Guia * eFila = eFilas->prim;/////***************NOOO TOCAR
+		Guia *ecolumna = eColumnas->prim;
 		reporte<<"{rank = same;-1,";
 		
 		while(ecolumna != NULL){
 			reporte<<"C";
 			reporte<<ecolumna->id;
-			if(ecolumna->siguiente != NULL)
+			if(ecolumna->sig != NULL)
 				reporte<<",";
-			ecolumna = ecolumna->siguiente;
+			ecolumna = ecolumna->sig;
 			
 		}
-		ecolumna = eColumnas->primero;
+		ecolumna = eColumnas->prim;
 		reporte<<"};\n";
 		reporte<<"-1[label=\"RAIZ\"];\n";
 		reporte<<"-1->";
@@ -351,15 +351,15 @@ void Matriz::reporte()
 			reporte<<"[label=\"";
 			reporte<<ecolumna->id;
 			reporte<<"\"];\n";
-			ecolumna = ecolumna->siguiente;
+			ecolumna = ecolumna->sig;
 		}
-		ecolumna = eColumnas->primero;
+		ecolumna = eColumnas->prim;
 		while(ecolumna != 0){
 			reporte<<"C";
 			reporte<<ecolumna->id;
-			if(ecolumna->siguiente !=0)
+			if(ecolumna->sig !=0)
 				reporte<<"->";
-			ecolumna = ecolumna->siguiente;
+			ecolumna = ecolumna->sig;
 		}
 		reporte<<"\n";
 		////****************** apuntaddores de cabeceras filas a NodoMs
@@ -375,36 +375,36 @@ void Matriz::reporte()
 			reporte<<"[label=\"";
 			reporte<<eFila->id;
 			reporte<<"\"];\n";
-			eFila = eFila->siguiente;
+			eFila = eFila->sig;
 		}
-		eFila = eFilas->primero;
+		eFila = eFilas->prim;
 		while(eFila != 0){
 			reporte<<"F";
 			reporte<<eFila->id;
 			
-			if(eFila->siguiente !=0)
+			if(eFila->sig !=0)
 				reporte<<"->";
-			eFila = eFila->siguiente;
+			eFila = eFila->sig;
 			
 		}
 		reporte<<"\n";
-		eFila = eFilas->primero;
+		eFila = eFilas->prim;
 		while(eFila != NULL){
-			NodoM *actual=eFila->acceso;
+			Nodo_Matriz *actual=eFila->entrada;
 			while(actual != NULL){
 				reporte<<actual->fila;
 				reporte<<actual->columna;
 				reporte<<"[label=\"";
 				reporte<<actual->valor;
 				reporte<<"\"];\n";
-				actual = actual->derecha;
+				actual = actual->der;
 			}
 			
-			eFila = eFila->siguiente;
+			eFila = eFila->sig;
 		}
-		eFila = eFilas->primero;
+		eFila = eFilas->prim;
 		while(eFila != NULL){
-			NodoM *actual = eFila->acceso;
+			Nodo_Matriz *actual = eFila->entrada;
 			reporte<<"F";
 			reporte<<eFila->id;
 			
@@ -412,12 +412,12 @@ void Matriz::reporte()
 			reporte<<actual->fila;
 			reporte<<actual->columna;
 			reporte<<"\n";
-			eFila = eFila->siguiente;
+			eFila = eFila->sig;
 		}
 		///***********apuntadores de cabeceras columnas a NodoMs
-		ecolumna = eColumnas->primero;
+		ecolumna = eColumnas->prim;
 		while(ecolumna!=NULL){
-			NodoM *actual = ecolumna->acceso;
+			Nodo_Matriz *actual = ecolumna->entrada;
 			while(actual!=NULL){
 				reporte<<actual->fila;
 				reporte<<actual->columna;
@@ -427,11 +427,11 @@ void Matriz::reporte()
 				actual = actual->abajo;
 			}
 			
-			ecolumna = ecolumna->siguiente;
+			ecolumna = ecolumna->sig;
 		}
-		ecolumna = eColumnas->primero;
+		ecolumna = eColumnas->prim;
 		while(ecolumna != NULL){
-			NodoM *actual = ecolumna->acceso;
+			Nodo_Matriz *actual = ecolumna->entrada;
 			reporte<<"C";
 			
 			reporte<<ecolumna->id;
@@ -440,11 +440,11 @@ void Matriz::reporte()
 			reporte<<actual->columna;
 			
 			reporte<<"\n";
-			ecolumna = ecolumna->siguiente;
+			ecolumna = ecolumna->sig;
 		}
-		eFila =eFilas->primero;
+		eFila =eFilas->prim;
     	while(eFila != NULL){
-    		NodoM *actual = eFila->acceso;
+    		Nodo_Matriz *actual = eFila->entrada;
     		reporte<<"{rank = same;";
     		reporte<<"F";
     		reporte<<eFila->id;
@@ -453,24 +453,24 @@ void Matriz::reporte()
     		while(actual != NULL){
     			reporte<<actual->fila;
     			reporte<<actual->columna;
-    			if(eFila->siguiente != NULL || actual->derecha != NULL){
-    				if(actual->derecha !=NULL){
+    			if(eFila->sig != NULL || actual->der != NULL){
+    				if(actual->der !=NULL){
     					reporte<<",";
 					}
     				
 				}
-				actual = actual->derecha;
+				actual = actual->der;
 			}
 			
-			eFila = eFila->siguiente;
+			eFila = eFila->sig;
 			reporte<<"};\n";
 			
 		}
 		//COLUMNAS
-		ecolumna = eColumnas->primero;
+		ecolumna = eColumnas->prim;
 		
 		while(ecolumna != NULL){
-    		NodoM *actual = ecolumna->acceso;
+    		Nodo_Matriz *actual = ecolumna->entrada;
     		reporte<<"{rank = main;";
     		reporte<<"C";
     		reporte<<ecolumna->id;
@@ -480,7 +480,7 @@ void Matriz::reporte()
     			
     			reporte<<actual->fila;
     			reporte<<actual->columna;
-    			if(ecolumna->siguiente != NULL || actual->abajo != NULL){
+    			if(ecolumna->sig != NULL || actual->abajo != NULL){
     				if(actual->abajo !=NULL){
     					reporte<<",";
 					}
@@ -488,27 +488,27 @@ void Matriz::reporte()
 				}
 				actual = actual->abajo;
 			}
-			ecolumna = ecolumna->siguiente;
+			ecolumna = ecolumna->sig;
 			reporte<<"};\n";
 		}
 		//a->b punteros siguientes filas
-		eFila = eFilas->primero;
+		eFila = eFilas->prim;
 		while(eFila != NULL){
-			NodoM * actual = eFila->acceso;
+			Nodo_Matriz * actual = eFila->entrada;
 	        while(actual != NULL)
 	        {
 	            reporte<< actual->fila;
 	            reporte<<actual->columna;
 	
-	            if(eFila->siguiente != NULL || actual->derecha != NULL)
+	            if(eFila->sig != NULL || actual->der != NULL)
 	            {
-	                if(actual->derecha != NULL)
+	                if(actual->der != NULL)
 						reporte<< "->";
 	            }
-	            actual = actual->derecha;
+	            actual = actual->der;
 	        }
 	       	reporte<<"\n";
-	        actual = eFila->acceso;
+	        actual = eFila->entrada;
 	        
 	        //pintar punteros anteriores filas
 	        reporte<<actual->fila;
@@ -521,31 +521,31 @@ void Matriz::reporte()
 	        reporte<<"\n";
 	        while(actual != NULL){
 	        	
-	        	if(actual->derecha != NULL){
-	        		reporte<<actual->derecha->fila;
-	        		reporte<<actual->derecha->columna;
+	        	if(actual->der != NULL){
+	        		reporte<<actual->der->fila;
+	        		reporte<<actual->der->columna;
 	        		
 	        		reporte<<"->";
 	        		reporte<<actual->fila;
 	        		reporte<<actual->columna;
 	        		
 	        		reporte<<"\n";
-	        		actual = actual->derecha;
+	        		actual = actual->der;
 	        		
 				}else{
 					
-					actual = actual->derecha;
+					actual = actual->der;
 				}
 	        		
 			}
 	
-	        eFila = eFila->siguiente;
+	        eFila = eFila->sig;
 	        reporte<<"\n";
 	    }
 	    //punteros abajo columnass
-	    ecolumna = eColumnas->primero;
+	    ecolumna = eColumnas->prim;
 	    while(ecolumna != NULL){
-	    	NodoM *actual = ecolumna->acceso;
+	    	Nodo_Matriz *actual = ecolumna->entrada;
 	    	reporte<<actual->fila;
 	        reporte<<actual->columna;
 	    	
@@ -557,13 +557,13 @@ void Matriz::reporte()
 	    		reporte<<actual->fila;
 	        	reporte<<actual->columna;
 	    		
-	    		if(ecolumna->siguiente != NULL || actual->abajo != NULL){
+	    		if(ecolumna->sig != NULL || actual->abajo != NULL){
 	    			if(actual->abajo != NULL)
 						reporte<<"->";
 				}
 				actual = actual->abajo;
 			}
-			actual = ecolumna->acceso;
+			actual = ecolumna->entrada;
 			reporte<<"\n";
 	        
 	        //pintar punteros anteriores columnas
@@ -585,7 +585,7 @@ void Matriz::reporte()
 				}
 	        		
 			}
-			ecolumna = ecolumna->siguiente;
+			ecolumna = ecolumna->sig;
 			reporte<<"\n";
 		}
 	    reporte<<"\n";
@@ -596,15 +596,15 @@ void Matriz::reporte()
 	}	
 }
 
-NodoM  * Matriz::buscar(int fila, int columna){
-	Guia *efila = eFilas->primero;
+Nodo_Matriz  * Matriz::buscar(int fila, int columna){
+	Guia *efila = eFilas->prim;
 	if(efila!=NULL){
-			while(efila->id != fila && efila->siguiente != NULL){
-			efila = efila->siguiente;
+			while(efila->id != fila && efila->sig != NULL){
+			efila = efila->sig;
 		}
-		NodoM * actual = efila->acceso;
-		while(actual->columna != columna && actual->derecha!= NULL){
-			actual = actual->derecha;
+		Nodo_Matriz * actual = efila->entrada;
+		while(actual->columna != columna && actual->der!= NULL){
+			actual = actual->der;
 		}
 		if(actual != NULL && actual->columna == columna){
 				//cout<<"VALOR ENCONTRADO: ";

@@ -22,7 +22,7 @@ class Metodos
 	public:
 		int dimension;
 		Nodo *j1, *j2;
-		Arbol *usuaios = new Arbol();
+		Arbol *jugador = new Arbol();
 		Matriz *matriz = new Matriz();
 		ListaDC *listaDiccionario = new ListaDC();
 		ListaD *fichas = new ListaD();
@@ -30,7 +30,7 @@ class Metodos
 		Cola *fichasDisponibles =new Cola();
 		ListaS *scoreboard = new ListaS();
 		void menu();
-		void insertarFichas(ListaDoble *fichas);
+		void insertarFichas(ListaD *fichas);
 		void LecturaDeArchivo(string archivo);
 		void ValidarPalabraHorizontal(string palabra, int columnaInicio, int  columnaFinal, int fila, Nodo *jugador);
 		void ValidarPalabraVertical(string palabra, int filaInicio, int filaFinal, int columna,Nodo *jugador);

@@ -5,7 +5,7 @@ using namespace std;
 NodoLD::NodoLD(char*letra, int cantidad, int puntaje){
 	this->letra = letra;
 	this->cantidad = cantidad;
-	this->punteo = punteo;
+	this->puntaje = puntaje;
 	this->sig = 0;
 	this->ant = 0;
 }
@@ -14,8 +14,8 @@ ListaD::ListaD(){
 	this->tamLD=-1;
 	
 }
-void ListaD::insertar(char *letra, int cantidad, int punteo){
-	NodoLD *nuevo = new NodoLD(letra, cantidad,punteo);
+void ListaD::insertar(char *letra, int cantidad, int puntaje){
+	NodoLD *nuevo = new NodoLD(letra, cantidad,puntaje);
 	if(tamLD == -1){
 		primero = nuevo;
 		tamLD = 0;
@@ -59,7 +59,7 @@ void ListaD::print(){
 		cout<<aux->cantidad;
 		cout<<"\n";
 	}
-}
+}			 
 void ListaD::eliminarCantidad(char*letra, int cant){
 	NodoLD *aux= primero;
 	if(aux->sig != 0){

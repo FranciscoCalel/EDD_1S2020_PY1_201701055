@@ -1,7 +1,8 @@
 #include "ListaDC.h"
+#include <iostream>
 #include <fstream>
 #include <string>
-#include <iostream>
+
 using namespace std;
 
 
@@ -14,7 +15,7 @@ nodoldc::nodoldc(string palabra)
 ListaDC::ListaDC(){
 	this->ultimo = 0;
 	this->primero = 0;
-	this->tamLC = -1;
+	this->tamaLC = -1;
 }
 
 void ListaDC::insertar(string palabra){

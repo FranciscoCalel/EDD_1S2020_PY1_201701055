@@ -26,7 +26,7 @@ void ListaS::insertarOrdenada(char*nombre, int punteo){
 		nodoLS *aux = primero;
 		
 		while(i==true){
-			if(punteo > primero->pupnteo){
+			if(punteo > primero->punteo){
 				nuevo->sig = primero;
 				primero = nuevo;
 				tamLS++;
@@ -61,7 +61,7 @@ void ListaS::print(){
 		cout<<aux->punteo;
 		aux = aux->sig;
 	}
-	cout<<aux->puntos<<endl;
+	cout<<aux->punteo<<endl;
 	
 }
 void ListaS::reporte(){

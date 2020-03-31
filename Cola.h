@@ -21,10 +21,11 @@ class Cola
 		int tamCola;
 		Cola();
 		void insertar(char *letra, int punteo);
-		void eliminar();
+		nodoCola* eliminar();
 		void reporte();
 		void print();
 	protected:
 };
 
 #endif
+

@@ -34,38 +34,29 @@ class Arbol
 	string texto;
 	Arbol();
 	
-    Nodo * buscar(char * info);
-    Nodo * buscar(Nodo * actual, char * info);
     
+	
+	Nodo * buscar(char * info);
+    Nodo * buscar(Nodo * actual, char * info);
     bool insertar(char * info);
     bool insertar(Nodo * actual, Nodo * nuevo);
-    
     void preOrden();
     void preOrden(Nodo * actual);
     void inOrden();
     void inOrden(Nodo * actual);
     void postOrden();
     void postOrden(Nodo * actual);
-    
     int calcularAltura();
     int calcularAltura(Nodo * actual);
     int getNodosHoja();
     int getNodosHoja(Nodo * actual);
-    
     Nodo * reporte(Nodo *actual);
-    
 	void reporte();
-    
     Nodo * reportePreorden(Nodo *actual);
-    
     void reportePreorden();
-    
     Nodo * reporteInorden(Nodo *actual);
-    
 	void reporteInorden();
-    
 	Nodo * reportePostorden(Nodo *actual);
-    
 	void reportePostorden();
     
 

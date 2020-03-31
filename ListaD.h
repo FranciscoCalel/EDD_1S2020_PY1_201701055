@@ -14,8 +14,8 @@ class NodoLD{
 	NodoLD* sig;
 	NodoLD* ant;
 	int cantidad;
-	int punteo;
-	NodoLD(char *letra, int cant, int punteo);
+	int puntaje;
+	NodoLD(char *letra, int cant, int puntaje);
 };
 class ListaD
 {
@@ -25,7 +25,7 @@ class ListaD
 		int tamLD;
 		int rep;
 		ListaD();
-		void insertar(char *letra, int cantidad, int punteo);
+		void insertar(char *letra, int cantidad, int puntaje);
 		void eliminarCantidad(char *letra, int cant);
 		void print();
 		void reporte();
