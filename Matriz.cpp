@@ -1,19 +1,23 @@
 #include "Matriz.h"
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
-using namespace std;
+using namespace std;  
 
-Nodo_Matriz::Nodo_Matriz(int fila, int columna, char * valor)
+Nodo_Matriz::Nodo_Matriz(int fila, int columna, char *valor)
 {
     this->fila = fila;
     this->columna = columna;
     this->valor = valor;
-    this->abajo = NULL;
-    this->arriba = NULL;
-    this->der = NULL;
-    this->izq = NULL;
     this->valorAnt = NULL;
+	this->der = NULL;
+    this->izq = NULL;
+	this->arriba = NULL;
+	this->abajo = NULL;
+    
+    
 }
 
 Guia::Guia(int id)

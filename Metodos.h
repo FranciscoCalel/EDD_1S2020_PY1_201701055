@@ -43,8 +43,11 @@ class Metodos
 		void IngresarJugador();
 		void SeleccionarJugador();
 		bool turno(string palabra,  Nodo *jugador);
-		void ABC(string palabra, Nodo *Jactual, Nodo *Jsiguiente);
+		void sdf(string palabra, Nodo *Jactual, Nodo *Jsiguiente);
 		void CambiarFichas(string letras, Nodo *jugador);
+		bool validar();
+		bool validar(Nodo_Matriz *actual);
+		void ReportePorJugador();
 	protected:
 };
 

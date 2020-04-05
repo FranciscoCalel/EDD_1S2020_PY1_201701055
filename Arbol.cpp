@@ -1,7 +1,9 @@
 #include "Arbol.h"
+#include "ListaD.h"
 #include <sstream>
 #include <stdlib.h>
 #include <string>
+
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -17,10 +19,11 @@ Nodo::Nodo(char *info)
 }
 Jugador::Jugador(char *nombre){
 	this->nombre = nombre;
-	this->fichasJugador = new ListaD();
+	this->fichasJugador = new ListaD();////error
 	this->puntaje = 0;
 	
 }
+
 
 Arbol::Arbol()
 {
@@ -73,7 +76,7 @@ bool Arbol::insertar(char *info)
         }
         else
         {
-				raiz->info;
+			raiz->info;
             return insertar(raiz, new Nodo(info));
         }
     }
@@ -235,7 +238,7 @@ string num;
 Nodo * Arbol::reporte(Nodo *actual){
 	stringstream s; // Creas el canal, contendr? el string
 	s << entero;
-	num = s.str();
+	num = s.str();//REVSIAR
 	
 	if(actual->izq != NULL){
 		texto = texto + actual->info;
@@ -308,14 +311,14 @@ Nodo *Arbol::reportePreorden(Nodo *actual){
     		
 	       	reportePreorden(actual->izq);
 	        reportePreorden(actual->der);
-		}
-		else{
-			texto = texto + "->";
-			texto = texto + actual->info;
+			}
+			else{
+				texto = texto + "->";
+				texto = texto + actual->info;
        		
        		reportePreorden(actual->izq);
         	reportePreorden(actual->der);
-		}
+			}
         
     }
 }

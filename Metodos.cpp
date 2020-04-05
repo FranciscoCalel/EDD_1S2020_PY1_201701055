@@ -1,4 +1,5 @@
 #include "Metodos.h"
+//#include "ListaD.h"
 #include <stdlib.h>
 #include <iostream>
 #include <stdio.h>
@@ -15,6 +16,8 @@ void Metodos::menu()
 	cout<<"1. LECTURA DE ARCHIVO\n";
 	cout<<"2. JUGAR\n";
 	cout<<"3. Reportes\n";
+	//jugador->insertar("franc");
+	//jugador->insertar("lol");
 	cin>>opcion;
 	switch(opcion)
 	{
@@ -36,8 +39,7 @@ void Metodos::menu()
 				IngresarJugador();
 				
 			}else if(opcion == 2){
-				jugador->insertar("franc");
-				jugador->insertar("lol");
+				
 			
 				SeleccionarJugador();
 			}
@@ -72,12 +74,12 @@ void Metodos::jugar(Nodo *j1, Nodo * j2){
 		string palabra;
 		if(turnoJ1 == true){
 			system("cls");
-			ABC(palabra, j1, j2);
+			sdf(palabra, j1, j2);
 			turnoJ1 = false;
 			turnoJ2 = true;
 		}else if(turnoJ2 == true){
 			system("cls");
-			ABC(palabra, j2, j1);
+			sdf(palabra, j2, j1);
 			turnoJ2 = false;
 			turnoJ1 = true;
 		}
@@ -108,7 +110,7 @@ void Metodos::SeleccionarJugador(){
 		cin>>nombre;
 		j2 = jugador->buscar(nombre);
 	}
-	insertarFichas(fichas);
+	insertarFichas( fichas);
 	insertarFichas(fichasCopia);
 	RepartirFichas(j1, j2);
 	system("cls");
@@ -645,7 +647,7 @@ bool Metodos::turno(string palabra,Nodo* jugador){
 		}
 	}
 }
-void Metodos::ABC(string palabra, Nodo *Jactual, Nodo *Jsiguiente){
+void Metodos::sdf(string palabra, Nodo *Jactual, Nodo *Jsiguiente){
 	int p, columna,fila, opcion;
 	cout<<"TURNO DE: ";
 	cout<<Jactual->info<<"\n";

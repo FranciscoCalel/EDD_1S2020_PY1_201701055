@@ -1,5 +1,5 @@
-#ifndef MATRIZ_H
-#define MATRIZ_H
+#ifndef MATRIZ_H_
+#define MATRIZ_H_
 
 typedef class Nodo_Matriz Nodo_Matriz;
 typedef class Guia Guia;
@@ -8,36 +8,38 @@ typedef class Matriz Matriz;
 
 class Nodo_Matriz
 {
-	public:
-	int fila, columna;
-	char *valorAnt;
-	char * valor;	
-	Nodo_Matriz *izq;
+public:
+	int fila;
+	int columna;
+	char *valor;
+	char *valorAnt;	
 	Nodo_Matriz *der;
+	Nodo_Matriz *izq;
 	Nodo_Matriz *arriba;
 	Nodo_Matriz *abajo;
-	Nodo_Matriz(int fila, int columna, char*valor);		
+	Nodo_Matriz(int fila, int columna, char * valor);		
 };
 
 class Guia{
 
-	public:
-		int id;
-		Guia * sig;
-		Guia * ant;
-		Nodo_Matriz * entrada;
-		Guia(int id);
+public:
+	int id;
+	Guia * sig;
+	Guia * ant;
+	Nodo_Matriz * entrada;
+	Guia(int id);
 };
 
 class Lista_guias{
-	public:
+public:
 	Guia * prim;
 	void insert(Guia * nuevo);
 	Guia * getGuia(int id);
 };
 
-class Matriz{
-	public:
+class Matriz
+{
+public:
 	Lista_guias * eFilas;
 	Lista_guias * eColumnas;
 	Matriz();

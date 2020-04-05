@@ -1,8 +1,9 @@
 #ifndef LISTAD_H
 #define LISTAD_H
-#include <iostream>
-#include <string.h>
 #include <fstream>
+#include <string.h>
+#include <iostream>
+
 using namespace std;
 
 
@@ -17,6 +18,7 @@ class NodoLD{
 	int puntaje;
 	NodoLD(char *letra, int cant, int puntaje);
 };
+
 class ListaD
 {
 	public:

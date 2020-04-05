@@ -1,4 +1,9 @@
 #include "ListaD.h"
+/*#include <stdlib.h>//agregar
+#include <iostream>
+#include <stdio.h>
+#include <time.h>
+#include <string.h>*/
 
 using namespace std;
 

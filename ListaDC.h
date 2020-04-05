@@ -1,7 +1,7 @@
 #ifndef LISTADOBLECIRCULAR_H
 #define LISTADOBLECIRCULAR_H
 #include <iostream>
-//#include <fstream>
+#include <fstream>///AGREGAR
 #include  <string.h>
 using namespace std;
 typedef class nodoldc nodoldc;
